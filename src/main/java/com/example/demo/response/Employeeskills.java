@@ -13,6 +13,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+import java.util.Date;
+
 @Entity
 @Data
 @Table(name="Employee_Skills")
@@ -28,6 +30,9 @@ public class Employeeskills {
 	
 	@Column(name="skill_id")
 	private long skillId;
+
+	@Column(name="timestamp")
+	private Date date=new Date();
 
 	public long getId() {
 		return id;

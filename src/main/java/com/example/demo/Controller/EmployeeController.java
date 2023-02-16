@@ -27,10 +27,10 @@ public class EmployeeController {
 	private Optional<Employee> get_employee(@PathVariable("id") long emp_id) {
 		return service.get_employee(emp_id);
 	}
-	@PutMapping("/edit/{id}")
-	public Employee edit_employee(@PathVariable ("id")long emp_id , @RequestBody Employee emp)
+	@PutMapping("/edit")
+	public Employee edit_employee( @RequestBody Employee emp)
 	{
-		return service.edit_employee(emp_id,emp);
+		return service.edit_employee(emp);
 	}
 	@PostMapping("/add")
 	private Employee add_employee(@RequestBody Employee emp)
@@ -41,5 +41,11 @@ public class EmployeeController {
 	private Skills add_skill(@RequestBody Skills skill)
 	{
 		return service.add_skill(skill);
+	}
+
+	@GetMapping("/allskills")
+	private List<Skills> all_skills()
+	{
+		return service.all_skills();
 	}
 }

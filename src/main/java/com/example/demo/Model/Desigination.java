@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NonNull;
 
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -18,6 +19,9 @@ public class Desigination {
     private long id;
     @Column(name="desigination_name")
     private String design;
+
+    @Column(name="timestamp")
+    private Date date=new Date();
 
     public Desigination(long id,  String design) {
         this.id = id;

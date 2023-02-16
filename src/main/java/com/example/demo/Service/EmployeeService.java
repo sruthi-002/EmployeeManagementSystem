@@ -39,16 +39,14 @@ public class EmployeeService {
 
 	/**
 	 * this method is tp edit the employee details
-	 * @param emp_id
 	 * @param emp
 	 * @return Employee
 	 */
-	public Employee edit_employee(long emp_id, Employee emp) {
-		Employee e = employeeRepo.findById(emp_id).get();
-		if(e==null)
-			return employeeRepo.save(emp
-			);
-		employeeRepo.deleteById(emp_id);
+	public Employee edit_employee( Employee emp) {
+		emp.getEmployeeskills().forEach(em -> em.setEmployee(emp));
 		return employeeRepo.save(emp);
+	}
+	public List<Skills> all_skills() {
+		return skillRepo.findAll();
 	}
 }

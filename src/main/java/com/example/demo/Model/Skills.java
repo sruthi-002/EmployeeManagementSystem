@@ -1,5 +1,6 @@
 package com.example.demo.Model;
 
+import java.util.Date;
 import java.util.List;
 
 import com.example.demo.response.Employeeskills;
@@ -25,6 +26,9 @@ public class Skills {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="skill_id",referencedColumnName="skill_id")
 	private List<Employeeskills> skills;
+
+	@Column(name="timestamp")
+	private Date date=new Date();
 	public Skills() {
 		super();
 	}

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -18,6 +19,9 @@ public class Department {
     private long did;
     @Column(name="depart")
     private String depart;
+
+    @Column(name="timestamp")
+    private Date date=new Date();
 
     public Department(long id, long did, String depart) {
         this.id = id;
