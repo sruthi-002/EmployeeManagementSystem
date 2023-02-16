@@ -41,7 +41,7 @@ public class EmployeeProjects {
     public void setId(long id) {
         this.id = id;
     }
-
+    //GET AN EMPLOYEE
     public Employee getEmp_id() {
         return emp_id;
     }
