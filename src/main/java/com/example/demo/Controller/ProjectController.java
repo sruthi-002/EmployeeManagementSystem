@@ -6,6 +6,7 @@ import com.example.demo.Repo.EmployeeRepo;
 import com.example.demo.Repo.ProjectRepo;
 import com.example.demo.Service.ProjectService;
 import com.example.demo.response.EmployeeProjects;
+import com.example.demo.response.ProjectResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,22 +27,28 @@ public class ProjectController {
     @PostMapping("/add-project")
     private Project add_project(@RequestBody Project project)
     {
+        System.out.println(project);
         return projectService.add_project(project);
     }
+    @GetMapping("/get_project/{id}")
+    private Project getproject(@PathVariable ("id") long project_id){
+        return projectService.getproject(project_id);
+    }
 
-//    @PostMapping("/add-project/{id}/{id2}")
-//    private String add_project_employee(@PathVariable ("id") long emp_id ,@PathVariable ("id2") long project_id)
-//    {
-//        Optional<Project> project = projectRepo.findById(project_id);
-//        Optional<Employee> emp = employeeRepo.findById(emp_id);
-//        EmployeeProjects emppro = new EmployeeProjects();
-//        emppro.setProject_id(project);
-//        emppro.setEmp_id(emp);
-////        Project p = new Project();
-////        p.setEmp_ProId((List<EmployeeProjects>) emppro);
-////        Employee e = new Employee();
-////        e.setEmployeeprojects((List<EmployeeProjects>) emppro);
-//        return " ";
-//    }
+    @PutMapping("/edit-project")
+    private Project edit_project(@RequestBody Project P)
+    {
+        return projectService.edit_project(P);
+    }
+    @GetMapping("/get_project_information/{id}")
+    private ProjectResponse get_information(@PathVariable ("id") long project_id)
+    {
+        return projectService.get_project(project_id);
+    }
+    @GetMapping("/get_all_projects")
+    private List<ProjectResponse> get_all()
+    {
+        return projectService.all();
+    }
 
 }

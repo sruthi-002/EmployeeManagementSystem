@@ -19,6 +19,10 @@ public class Employee {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="emp_id")
 	private long empId;
+
+	@Column(name="employee_id")
+	private String employee_id;
+
 	@Column(name="emp_firstname")
 	private String fname;
 
@@ -43,10 +47,25 @@ public class Employee {
 	private long desigination_id;
 	@Column(name="timestamp")
 	private Date date=new Date();
-	@OneToMany(cascade = CascadeType.ALL,mappedBy="emp_id")
+	@OneToMany(cascade = CascadeType.ALL,mappedBy="empId")
 	private List<EmployeeProjects> employeeprojects;
-	public Employee(long empId, String fname, String lname, String email, LocalDate dob, LocalDate jdate, LocalDate ldate, List<Employeeskills> employeeskills, long department_id, long desigination_id) {
+
+	@Column(name="Experience")
+	private float experience;
+
+	@Column(name="employment_type")
+	private String employment_type;
+
+	@Column(name="status")
+	private String status;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "fk_payroll_id")
+	private Payroll payroll;
+
+	public Employee(long empId, String employee_id, String fname, String lname, String email, LocalDate dob, LocalDate jdate, LocalDate ldate, List<Employeeskills> employeeskills, long department_id, long desigination_id, Date date, List<EmployeeProjects> employeeprojects, float experience, String employment_type, String status, Payroll payroll) {
 		this.empId = empId;
+		this.employee_id = employee_id;
 		this.fname = fname;
 		this.lname = lname;
 		this.email = email;
@@ -56,6 +75,84 @@ public class Employee {
 		this.employeeskills = employeeskills;
 		this.department_id = department_id;
 		this.desigination_id = desigination_id;
+		this.date = date;
+		this.employeeprojects = employeeprojects;
+		this.experience = experience;
+		this.employment_type = employment_type;
+		this.status = status;
+		this.payroll = payroll;
+	}
+
+	public float getExperience() {
+		return experience;
+	}
+
+	public void setExperience(float experience) {
+		this.experience = experience;
+	}
+
+	public String getEmployment_type() {
+		return employment_type;
+	}
+
+	public void setEmployment_type(String employment_type) {
+		this.employment_type = employment_type;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public Payroll getPayroll() {
+		return payroll;
+	}
+
+	public void setPayroll(Payroll payroll) {
+		this.payroll = payroll;
+	}
+
+	public String getEmployee_id() {
+		return employee_id;
+	}
+
+	public void setEmployee_id(String employee_id) {
+		this.employee_id = employee_id;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public List<EmployeeProjects> getEmployeeprojects() {
+		return employeeprojects;
+	}
+
+	public void setEmployeeprojects(List<EmployeeProjects> employeeprojects) {
+		this.employeeprojects = employeeprojects;
+	}
+
+	public Employee(long empId, String employee_id, String fname, String lname, String email, LocalDate dob, LocalDate jdate, LocalDate ldate, List<Employeeskills> employeeskills, long department_id, long desigination_id, Date date, List<EmployeeProjects> employeeprojects) {
+		this.empId = empId;
+		this.employee_id = employee_id;
+		this.fname = fname;
+		this.lname = lname;
+		this.email = email;
+		this.dob = dob;
+		this.jdate = jdate;
+		this.ldate = ldate;
+		this.employeeskills = employeeskills;
+		this.department_id = department_id;
+		this.desigination_id = desigination_id;
+		this.date = date;
+		this.employeeprojects = employeeprojects;
 	}
 
 	public long getEmpId() {

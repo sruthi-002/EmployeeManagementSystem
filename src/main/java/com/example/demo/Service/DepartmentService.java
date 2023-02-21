@@ -4,6 +4,8 @@ import com.example.demo.Model.Department;
 import com.example.demo.Model.Employee;
 import com.example.demo.Repo.DepartmentRepo;
 import com.example.demo.Repo.EmployeeRepo;
+import com.example.demo.Service.Exception.DepartmentNotFound;
+import com.example.demo.Service.Exception.EmployeeNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,11 +23,7 @@ public class DepartmentService {
         return departmentRepo.save(d);
     }
 
-    //public String getdepart(long empId) {
-        //Employee emp = erepo.findById(empId).get();
-        //long d =emp.getDepartment();
-        //return d;
-    //}
+
 
     public long getname(String name) {
         Department d = departmentRepo.findByDepart(name);
@@ -38,5 +36,9 @@ public class DepartmentService {
     public List<Department> display_department() {
 
         return departmentRepo.findAll();
+    }
+
+    public Department get_department(long did) {
+        return departmentRepo.findById(did).orElseThrow(() -> new DepartmentNotFound("Department with id: " + did + " is not found."));
     }
 }

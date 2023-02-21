@@ -18,11 +18,11 @@ public class DepartmentController {
     {
         return service.add_department(d);
     }
-   // @GetMapping("/getdepartment/{id}")
-    //private String getdepart(@PathVariable ("id") long emp_id )
-    //{
-        //return service.getdepart(emp_id);
-    //}
+    @GetMapping("/get-departmentbyid/{id}")
+    private Department get_department(@PathVariable ("id") long did)
+    {
+        return service.get_department(did);
+    }
     @GetMapping("getnamebydepart/{name}")
     private long getname(@PathVariable ("name") String depart)
     {

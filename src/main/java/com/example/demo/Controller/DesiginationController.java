@@ -16,6 +16,12 @@ public class DesiginationController {
     {
         return Service.add_desigination(d);
     }
+
+    @GetMapping("/get-designation/{id}")
+    private Desigination getdesigination(@PathVariable ("id") long id)
+    {
+        return Service.getdesignation(id);
+    }
     @GetMapping("/desiginations")
     private List<Desigination> display_desigination()
     {

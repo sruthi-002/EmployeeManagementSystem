@@ -1,37 +1,54 @@
 package com.example.demo.response;
 
-import com.example.demo.Model.Employee;
 import com.example.demo.Model.Project;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-
-import java.util.Optional;
+import lombok.ToString;
 
 @Entity
+@ToString
 @Table(name="employee_projects")
 public class EmployeeProjects {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne
-    @JsonIgnore
-    @JoinColumn(name="emp_id")
-    private Employee emp_id;
+    @Column(name="emp_id")
+    private long empId;
 
-    @ManyToOne
-    @JsonIgnore
-    @JoinColumn(name="project_id")
-    private Project project_id;
+    @Column(name="project_id")
+    private long project_id;
 
-    public EmployeeProjects(long id, Employee emp_id, Project project_id) {
+    @Column(name="team_id")
+    private long team_id;
+
+
+    @Column(name="amount")
+    private int amount;
+
+    public EmployeeProjects(long id, long empId, long project_id, long team_id,int amount) {
         this.id = id;
-        this.emp_id = emp_id;
+        this.empId = empId;
         this.project_id = project_id;
+        this.team_id = team_id;
+        this.amount = amount;
     }
 
-    public EmployeeProjects() {
-        super();
+    public long getTeam_id() {
+        return team_id;
+    }
+
+    public void setTeam_id(long team_id) {
+        this.team_id = team_id;
+    }
+
+
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
     public long getId() {
@@ -41,20 +58,24 @@ public class EmployeeProjects {
     public void setId(long id) {
         this.id = id;
     }
-    //GET AN EMPLOYEE
-    public Employee getEmp_id() {
-        return emp_id;
+
+    public long getEmpId() {
+        return empId;
     }
 
-    public void setEmp_id(Employee emp_id) {
-        this.emp_id = emp_id;
+    public void setEmpId(long empId) {
+        this.empId = empId;
     }
 
-    public Project getProject_id() {
+    public long getProject_id() {
         return project_id;
     }
 
-    public void setProject_id(Project project_id) {
+    public void setProject_id(long project_id) {
         this.project_id = project_id;
+    }
+
+    public EmployeeProjects() {
+        super();
     }
 }
