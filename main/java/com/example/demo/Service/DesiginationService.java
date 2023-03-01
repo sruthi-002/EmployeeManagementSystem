@@ -2,6 +2,7 @@ package com.example.demo.Service;
 
 import com.example.demo.Model.Desigination;
 import com.example.demo.Repo.DesiginationRepo;
+import com.example.demo.Service.Exception.DesignationNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,5 +18,9 @@ public class DesiginationService {
 
     public List<Desigination> display_desigination() {
         return desiginationRepo.findAll();
+    }
+
+    public Desigination getdesignation(long id) {
+        return desiginationRepo.findById(id).orElseThrow(() -> new DesignationNotFound("Designation with id: " + id + " is not found."));
     }
 }

@@ -8,15 +8,22 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
+@RequestMapping("/designations")
 public class DesiginationController {
     @Autowired
     private DesiginationService Service;
-    @PostMapping("/adddesig")
+    @PostMapping("")
     private Desigination add_desigination(@RequestBody Desigination d)
     {
         return Service.add_desigination(d);
     }
-    @GetMapping("/desiginations")
+
+    @GetMapping("/{id}")
+    private Desigination getdesigination(@PathVariable ("id") long id)
+    {
+        return Service.getdesignation(id);
+    }
+    @GetMapping("")
     private List<Desigination> display_desigination()
     {
         return Service.display_desigination();
