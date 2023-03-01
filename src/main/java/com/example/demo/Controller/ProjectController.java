@@ -1,18 +1,14 @@
 package com.example.demo.Controller;
 
-import com.example.demo.Model.Employee;
 import com.example.demo.Model.Project;
 import com.example.demo.Repo.EmployeeRepo;
 import com.example.demo.Repo.ProjectRepo;
 import com.example.demo.Service.ProjectService;
-import com.example.demo.response.EmployeeProjects;
 import com.example.demo.response.ProjectResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
-
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class ProjectController {
@@ -50,5 +46,4 @@ public class ProjectController {
     {
         return projectService.all();
     }
-
 }

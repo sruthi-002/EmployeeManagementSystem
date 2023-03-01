@@ -1,15 +1,16 @@
 package com.example.demo.Model;
 
-import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
-
+import com.example.demo.response.EmployeeCertifications;
 import com.example.demo.response.EmployeeProjects;
 import com.example.demo.response.Employeeskills;
-
 import jakarta.persistence.*;
 import lombok.Data;
-import org.springframework.web.bind.annotation.CrossOrigin;
+
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -43,8 +44,11 @@ public class Employee {
 
 	@OneToMany(cascade = CascadeType.ALL,mappedBy="employee")
 	private List<Employeeskills> employeeskills;
-	private long department_id;
-	private long desigination_id;
+
+	@OneToMany(cascade = CascadeType.ALL,mappedBy="employee")
+	private List<EmployeeCertifications> employeeCertifications;
+	private long departmentId;
+	private long desiginationId;
 	@Column(name="timestamp")
 	private Date date=new Date();
 	@OneToMany(cascade = CascadeType.ALL,mappedBy="empId")
@@ -59,9 +63,65 @@ public class Employee {
 	@Column(name="status")
 	private String status;
 
+	@Column(name = "password")
+	private String password;
+	@Column(name="city")
+	private String city;
+	@Column(name="address")
+	private String address;
+
+	@Column(name = "country")
+	private String country;
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "fk_payroll_id")
 	private Payroll payroll;
+
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name ="user_roles", joinColumns = @JoinColumn (name="user_id"), inverseJoinColumns = @JoinColumn (name="role_id"))
+	private Set<Role> roles=new HashSet<>();
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+	@Column(name="enabled")
+	private boolean enabled;
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
 
 	public Employee(long empId, String employee_id, String fname, String lname, String email, LocalDate dob, LocalDate jdate, LocalDate ldate, List<Employeeskills> employeeskills, long department_id, long desigination_id, Date date, List<EmployeeProjects> employeeprojects, float experience, String employment_type, String status, Payroll payroll) {
 		this.empId = empId;
@@ -73,8 +133,8 @@ public class Employee {
 		this.jdate = jdate;
 		this.ldate = ldate;
 		this.employeeskills = employeeskills;
-		this.department_id = department_id;
-		this.desigination_id = desigination_id;
+		this.departmentId = department_id;
+		this.desiginationId = desigination_id;
 		this.date = date;
 		this.employeeprojects = employeeprojects;
 		this.experience = experience;
@@ -149,8 +209,8 @@ public class Employee {
 		this.jdate = jdate;
 		this.ldate = ldate;
 		this.employeeskills = employeeskills;
-		this.department_id = department_id;
-		this.desigination_id = desigination_id;
+		this.departmentId = department_id;
+		this.desiginationId = desigination_id;
 		this.date = date;
 		this.employeeprojects = employeeprojects;
 	}
@@ -219,20 +279,28 @@ public class Employee {
 		this.employeeskills = employeeskills;
 	}
 
-	public long getDepartment_id() {
-		return department_id;
+	public long getDepartmentId() {
+		return departmentId;
 	}
 
-	public void setDepartment_id(long department_id) {
-		this.department_id = department_id;
+	public void setDepartmentId(long departmentId) {
+		this.departmentId = departmentId;
 	}
 
-	public long getDesigination_id() {
-		return desigination_id;
+	public long getDesiginationId() {
+		return desiginationId;
 	}
 
-	public void setDesigination_id(long desigination_id) {
-		this.desigination_id = desigination_id;
+	public void setDesiginationId(long desiginationId) {
+		this.desiginationId = desiginationId;
+	}
+	
+	public List<EmployeeCertifications> getEmployeeCertifications() {
+		return employeeCertifications;
+	}
+
+	public void setEmployeeCertifications(List<EmployeeCertifications> employeeCertifications) {
+		this.employeeCertifications = employeeCertifications;
 	}
 
 	public Employee() {

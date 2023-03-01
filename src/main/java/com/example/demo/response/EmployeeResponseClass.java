@@ -34,7 +34,15 @@ public class EmployeeResponseClass {
     private List<String> employeeskills;
     private String department;
     private String desigination;
+    private List<String> certifications;
 
+    public List<String> getCertifications() {
+        return certifications;
+    }
+
+    public void setCertifications(List<String> certifications) {
+        this.certifications = certifications;
+    }
 
     private List<EmployeeProjectResponse> employeeprojects;
 
@@ -46,7 +54,7 @@ public class EmployeeResponseClass {
 
     private Payroll payroll;
 
-    public EmployeeResponseClass(long empId, String employee_id, String fname, String lname, String email, LocalDate dob, LocalDate jdate, LocalDate ldate, List<String> employeeskills, String department, String desigination, List<EmployeeProjectResponse> employeeprojects, float experience, String employment_type, String status, Payroll payroll) {
+    public EmployeeResponseClass(long empId, String employee_id, String fname, String lname, String email, LocalDate dob, LocalDate jdate, LocalDate ldate, List<String> employeeskills, String department, String desigination, List<String> certifications, List<EmployeeProjectResponse> employeeprojects, float experience, String employment_type, String status, Payroll payroll) {
         this.empId = empId;
         this.employee_id = employee_id;
         this.fname = fname;
@@ -58,6 +66,7 @@ public class EmployeeResponseClass {
         this.employeeskills = employeeskills;
         this.department = department;
         this.desigination = desigination;
+        this.certifications = certifications;
         this.employeeprojects = employeeprojects;
         this.experience = experience;
         this.employment_type = employment_type;

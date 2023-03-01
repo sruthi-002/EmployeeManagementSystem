@@ -1,14 +1,18 @@
 package com.example.demo.Repo;
 
+import com.example.demo.Model.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.Model.Employee;
-
 import java.util.List;
-import java.util.Map;
 
 @Repository
 public interface EmployeeRepo extends JpaRepository<Employee,Long>{
+    List<Employee> findBydesiginationId(long id);
+
+    List<Employee> findBydepartmentId(long id);
+
+    List<Employee> findByOrderByExperienceDesc();
+
+    Employee findByEmail(String username);
 }

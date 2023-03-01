@@ -22,4 +22,14 @@ public class TimeSheetController {
     {
         return timeSheetService.all();
     }
+    @GetMapping("/get_timesheet/{id}")
+    private List<TimeSheet> get_timesheet(@PathVariable ("id") long project_id)
+    {
+        return timeSheetService.get_timesheet(project_id);
+    }
+    @GetMapping("/employee_timesheet/{id}")
+    private List<TimeSheet> employee_timesheet(@PathVariable ("id") long empId)
+    {
+        return timeSheetService.get_timesheetByEmployeeId(empId);
+    }
 }

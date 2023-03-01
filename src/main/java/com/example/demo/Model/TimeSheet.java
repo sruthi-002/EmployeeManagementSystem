@@ -2,6 +2,8 @@ package com.example.demo.Model;
 
 import jakarta.persistence.*;
 
+import java.util.Date;
+
 @Entity
 @Table(name = "timesheet")
 public class TimeSheet {
@@ -14,6 +16,9 @@ public class TimeSheet {
     private long project_id;
     @Column(name = "duration")
     private int duration;
+
+    @Column(name = "date")
+    private Date date=new Date();
 
     public long getId() {
         return id;

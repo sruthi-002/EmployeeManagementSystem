@@ -8,7 +8,6 @@ import com.example.demo.Service.Exception.DepartmentNotFound;
 import com.example.demo.response.PayrollResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.*;
 
@@ -33,7 +32,7 @@ public class PayrollService {
         payrollResponse.setStatus(emp.getStatus());
         payrollResponse.setJoin_date(emp.getJdate());
         payrollResponse.setType_of_employee(emp.getEmployment_type());
-        long d = emp.getDepartment_id();
+        long d = emp.getDepartmentId();
         Department department = departmentRepo.findById(d).orElseThrow(() -> new DepartmentNotFound("Department with id: " + d + " is not found."));
         payrollResponse.setDepartment(department.getDepart());
         return payrollResponse;

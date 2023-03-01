@@ -1,8 +1,5 @@
 package com.example.demo.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.example.demo.Model.*;
 import com.example.demo.Repo.*;
 import com.example.demo.Service.Exception.DepartmentNotFound;
@@ -12,13 +9,22 @@ import com.example.demo.response.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 @Service
 public class EmployeeService {
 	@Autowired
 	private EmployeeRepo employeeRepo;
 	@Autowired
 	private SkillRepo skillRepo;
-
+	@Autowired
+	private CertificationRepo certificationRepo;
+	@Autowired
+	private EmployeeCertificationRepo employeeCertificationRepo;
+	@Autowired
+	private EmployeeSkillRepo employeeSkillRepo;
+	@Autowired
+	private PayrollRepo payrollRepo;
 	@Autowired
 	private DesiginationRepo desiginationRepo;
 	@Autowired
@@ -33,6 +39,7 @@ public class EmployeeService {
 	}
 	public Employee add_employee(Employee emp) {
 		emp.getEmployeeskills().forEach(em -> em.setEmployee(emp));
+		emp.setEnabled(true);
 		return employeeRepo.save(emp);
 	}
 	public Skills add_skill(Skills skill) {
@@ -95,16 +102,24 @@ public class EmployeeService {
 		response.setEmployment_type(employee.getEmployment_type());
 		response.setPayroll(employee.getPayroll());
 		response.setStatus(employee.getStatus());
-		long department_id = employee.getDepartment_id();
+		long department_id = employee.getDepartmentId();
 		Department department = departmentRepo.findById(department_id).orElseThrow(() -> new DepartmentNotFound("Department with id: " + department_id + " is not found."));
 		String depart = department.getDepart();
 		response.setDepartment(depart);
-		long designation_id = employee.getDesigination_id();
+		long designation_id = employee.getDesiginationId();
 		Desigination designation = desiginationRepo.findById(designation_id).orElseThrow(() -> new DesignationNotFound("Designation with id: " + designation_id + " is not found."));
 		String design = designation.getDesign();
 		response.setDesigination(design);
 		response.setJdate(employee.getJdate());
 		response.setLdate(employee.getLdate());
+		List<EmployeeCertifications> certifications = employee.getEmployeeCertifications();
+		List<String> Certificate = new ArrayList<String>();
+		certifications.forEach(id->{
+			long c = id.getCertId();
+			Certifications Cer = certificationRepo.findById(c).orElseThrow(() -> new DepartmentNotFound("Certification with id: " + c + " is not found."));
+			Certificate.add(Cer.getCertificate());
+		});
+		response.setCertifications(Certificate);
 		return response;
 	}
 
@@ -115,5 +130,64 @@ public class EmployeeService {
 			employeresponse.add(get_employee_information(id.getEmpId()));
 		});
 		return employeresponse;
+	}
+
+	public List<Employee> filter(long id, String entity) {
+		if(entity.equals("DESIGNATION"))
+		{
+			List<Employee> employeeList = employeeRepo.findBydesiginationId(id);
+			List<Employee> employeresponse = new ArrayList<Employee>();
+			employeeList.forEach(d->{
+				employeresponse.add(get_employee(d.getEmpId()));
+			});
+			return employeresponse;
+		}
+		else if(entity.equals("DEPARTMENT"))
+		{
+			List<Employee> employeeList = employeeRepo.findBydepartmentId(id);
+			List<Employee> employeresponse = new ArrayList<Employee>();
+			employeeList.forEach(d->{
+				employeresponse.add(get_employee(d.getEmpId()));
+			});
+			return employeresponse;
+		}
+		else if(entity.equals("SKILLS"))
+		{
+			List<Employeeskills> employeeskills = new ArrayList<Employeeskills>();
+			List<Employee> employeresponse = new ArrayList<Employee>();
+			employeeskills = employeeSkillRepo.findBySkillId(id);
+			employeeskills.forEach(d->{
+				Employee emp = d.getEmployee();
+				long empid = emp.getEmpId();
+				employeresponse.add(get_employee(empid));
+			});
+			return employeresponse;
+		}
+		else if (entity.equals("CERTIFICATIONS"))
+		{
+			List<EmployeeCertifications> employeeCertifications = new ArrayList<EmployeeCertifications>();
+			List<Employee> employeresponse = new ArrayList<Employee>();
+			employeeCertifications = employeeCertificationRepo.findByCertId(id);
+			employeeCertifications.forEach(d->{
+				employeresponse.add(get_employee(d.getEmployee()));
+			});
+			return employeresponse;
+		}
+		else if(entity.equals("Salary"))
+		{
+			List<Employee> employeresponse = new ArrayList<Employee>();
+			List<Payroll> payrolls = new ArrayList<Payroll>();
+			payrolls = payrollRepo.findByOrderBySalaryDesc();
+			payrolls.forEach(payroll -> {
+				employeresponse.add(get_employee(payroll.getEmpId()));
+			});
+			return employeresponse;
+		}
+		else
+		{
+			List<Employee> employeresponse = new ArrayList<Employee>();
+			employeresponse=employeeRepo.findByOrderByExperienceDesc();
+			return employeresponse;
+		}
 	}
 }
