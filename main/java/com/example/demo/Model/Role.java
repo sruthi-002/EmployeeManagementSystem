@@ -1,12 +1,18 @@
 package com.example.demo.Model;
 
-import jakarta.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "roles")
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="role_id")
     private long id;
     @Column(name = "roles")
     private String roles;
@@ -29,11 +35,11 @@ public class Role {
         this.id = id;
     }
 
-    public String getRoles() {
+    public String getRole() {
         return roles;
     }
 
-    public void setRoles(String roles) {
+    public void setRole(String roles) {
         this.roles = roles;
     }
 }

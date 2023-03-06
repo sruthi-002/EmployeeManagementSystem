@@ -1,9 +1,9 @@
 package com.example.demo.Model;
 
 import com.example.demo.response.EmployeeProjects;
-import jakarta.persistence.*;
 import lombok.Data;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +12,7 @@ import java.util.List;
 @Table(name="project")
 public class Project {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="project_id")
     private long project_id;
     @Column(name="title")

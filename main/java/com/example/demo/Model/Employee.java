@@ -3,9 +3,8 @@ package com.example.demo.Model;
 import com.example.demo.response.EmployeeCertifications;
 import com.example.demo.response.EmployeeProjects;
 import com.example.demo.response.Employeeskills;
-import jakarta.persistence.*;
-import lombok.Data;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
@@ -13,7 +12,6 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Data
 @Table(name="Employee")
 public class Employee {
 	@Id
@@ -305,5 +303,9 @@ public class Employee {
 
 	public Employee() {
 		super();
+	}
+
+	public String getPassword() {
+		return "Sruthi";
 	}
 }

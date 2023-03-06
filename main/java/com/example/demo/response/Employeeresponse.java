@@ -1,11 +1,5 @@
 package com.example.demo.response;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-
-import java.util.List;
-
 public class Employeeresponse {
     private long empId;
     private String name;

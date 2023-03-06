@@ -7,7 +7,6 @@ import com.example.demo.Repo.EmployeeRepo;
 import com.example.demo.Repo.ProjectRepo;
 import com.example.demo.Repo.TeamRepo;
 import com.example.demo.Service.Exception.EmployeeNotFound;
-import com.example.demo.Service.Exception.ProjectNotFound;
 import com.example.demo.response.EmployeeDetails;
 import com.example.demo.response.EmployeeProjects;
 import com.example.demo.response.ProjectResponse;
@@ -29,13 +28,14 @@ public class ProjectService {
     private TeamRepo teamRepo;
     public Project add_project(Project project){
         project.getProject_id();
+        projectRepo.save(project);
+        long d =project.getProject_id();
         project.getEmp_ProId().forEach(pro->{
-            long d = pro.getProject_id();
             pro.setProject_id(d);
         });
         project.getEmp_ProId().forEach(emp->{
-            long d = emp.getEmpId();
-            emp.setEmpId(d);
+            long e = emp.getEmpId();
+            emp.setEmpId(e);
         });
         return  projectRepo.save(project);
     }

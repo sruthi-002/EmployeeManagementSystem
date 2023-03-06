@@ -40,7 +40,12 @@ public class EmployeeService {
 	public Employee add_employee(Employee emp) {
 		emp.getEmployeeskills().forEach(em -> em.setEmployee(emp));
 		emp.setEnabled(true);
-		return employeeRepo.save(emp);
+		Employee E = employeeRepo.save(emp);
+		long id = emp.getPayroll().getId();
+		Payroll payroll = payrollRepo.findById(id).orElseThrow(() -> new EmployeeNotFound("Payroll with id: " + id + " is not found."));
+		payroll.setEmpId(emp.getEmpId());
+		payrollRepo.save(payroll);
+		return E;
 	}
 	public Skills add_skill(Skills skill) {
 		return skillRepo.save(skill);

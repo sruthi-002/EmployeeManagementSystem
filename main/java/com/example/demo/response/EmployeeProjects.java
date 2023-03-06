@@ -1,8 +1,8 @@
 package com.example.demo.response;
 
-import com.example.demo.Model.Project;
-import jakarta.persistence.*;
 import lombok.ToString;
+
+import javax.persistence.*;
 
 @Entity
 @ToString

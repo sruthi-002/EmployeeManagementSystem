@@ -1,10 +1,8 @@
 package com.example.demo.response;
 
 import com.example.demo.Model.Payroll;
-import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 public class EmployeeResponseClass {
